@@ -1,37 +1,40 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/Pausable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/utils/PausableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
-contract HFTToken is ERC20, Ownable, Pausable {
-    constructor(
+contract HFTToken is Initializable, ERC20Upgradeable, OwnableUpgradeable, PausableUpgradeable, UUPSUpgradeable {
+    /// @custom:oz-upgrades-unsafe-allow constructor
+    constructor() {
+        _disableInitializers();
+    }
+
+    function initialize(
         string memory name,
         string memory symbol
-    ) ERC20(name, symbol) Ownable(msg.sender) {}
+    ) public initializer {
+        __ERC20_init(name, symbol);
+        __Ownable_init(msg.sender);
+        __Pausable_init();
+        __UUPSUpgradeable_init();
+    }
     
-    /**
-     * @dev Mints new tokens to the specified address
-     * @param to The address that will receive the minted tokens
-     * @param amount The amount of tokens to mint
-     */
     function mint(address to, uint256 amount) external onlyOwner whenNotPaused {
         require(to != address(0), "HFTToken: mint to zero address");
         _mint(to, amount);
     }
 
-    /**
-     * @dev Pauses token minting
-     */
     function pause() external onlyOwner {
         _pause();
     }
 
-    /**
-     * @dev Unpauses token minting
-     */
     function unpause() external onlyOwner {
         _unpause();
     }
-}
+
+    function _authorizeUpgrade(address newImplementation) internal override onlyOwner {}
+} 

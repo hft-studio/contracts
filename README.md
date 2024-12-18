@@ -1,13 +1,25 @@
 # HFT Token
 
+An upgradeable ERC20 token deployed on Base mainnet.
+
 ## Deployment Information
 
-### Base Sepolia Testnet
-- **Contract Address**: `0x4d7F286BF85f7511710fD4DbB72c71c0b991a483`
-- **Transaction Hash**: `0xe045fc1888f111810dd54562c581a109b0f7bd4f7aa50f8ce9f67bb8e6ef92f8`
-- **Block Number**: 18296633
-- **Network**: Base Sepolia (Chain ID: 84532)
-- **Block Explorer**: [View on Basescan](https://sepolia.basescan.org/address/0x4d7F286BF85f7511710fD4DbB72c71c0b991a483)
+### Base Mainnet
+- Proxy Contract: `0x9283562629E708B694514E494004Ebd471348b16`
+- Implementation Contract: `0x1040FbA35f42F0aD0fcfA852255347Fb1e6Ea881`
+- Network: Base Mainnet
+- Block: 23847089
+
+## Contract Features
+- ERC20 Standard Implementation
+- Upgradeable (UUPS Pattern)
+- Pausable functionality
+- Ownable with access control
+
+## Upgrading
+The contract can be upgraded by the owner using the UUPS proxy pattern. See `script/HFTTokenUpgrade.s.sol` for upgrade implementation.
+
+## Development
 
 ## Foundry
 
