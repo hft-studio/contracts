@@ -5,21 +5,59 @@ An upgradeable ERC20 token deployed on Base mainnet.
 ## Deployment Information
 
 ### Base Mainnet
-- Proxy Contract: `0x9283562629E708B694514E494004Ebd471348b16`
+- Proxy Contract (Main Address): `0x9283562629E708B694514E494004Ebd471348b16`
 - Implementation Contract: `0x1040FbA35f42F0aD0fcfA852255347Fb1e6Ea881`
 - Network: Base Mainnet
 - Block: 23847089
+- Deployment Cost: 0.00003419378337742 ETH (1928390 gas * avg 0.017731778 gwei)
+
+## Contract Architecture
+The token uses a proxy pattern consisting of two contracts:
+1. **Proxy Contract** (`0x9283562629E708B694514E494004Ebd471348b16`)
+   - This is the main address users interact with
+   - Stores all contract state (balances, etc.)
+   - Address remains constant through upgrades
+
+2. **Implementation Contract** (`0x1040FbA35f42F0aD0fcfA852255347Fb1e6Ea881`)
+   - Contains the contract logic
+   - Can be upgraded by the contract owner
+   - No state storage
 
 ## Contract Features
 - ERC20 Standard Implementation
 - Upgradeable (UUPS Pattern)
 - Pausable functionality
 - Ownable with access control
-
-## Upgrading
-The contract can be upgraded by the owner using the UUPS proxy pattern. See `script/HFTTokenUpgrade.s.sol` for upgrade implementation.
+- Backend-managed reward distribution
+- veNFT integration for governance and rewards
 
 ## Development
+
+### Build
+```shell
+$ forge build
+```
+
+### Test
+```shell
+$ forge test
+```
+
+### Deploy
+```shell
+$ source .env && forge script script/HFTToken.s.sol:HFTTokenScript \
+    --rpc-url <your_rpc_url> \
+    --private-key $PRIVATE_KEY \
+    --broadcast
+```
+
+### Upgrade
+```shell
+$ source .env && forge script script/HFTTokenUpgrade.s.sol:UpgradeScript \
+    --rpc-url <your_rpc_url> \
+    --private-key $PRIVATE_KEY \
+    --broadcast
+```
 
 ## Foundry
 
