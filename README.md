@@ -5,20 +5,20 @@ An upgradeable ERC20 token deployed on Base mainnet.
 ## Deployment Information
 
 ### Base Mainnet
-- Proxy Contract (Main Address): `0x9283562629E708B694514E494004Ebd471348b16`
-- Implementation Contract: `0x1040FbA35f42F0aD0fcfA852255347Fb1e6Ea881`
+- Proxy Contract (Main Address): `0x9BA2dD51E6dE0247231c9Eb5Ad47DDdA64f5444c`
+- Implementation Contract: `0x24f44C21511ffc40363467077f96C989F931E504`
 - Network: Base Mainnet
-- Block: 23847089
-- Deployment Cost: 0.00003419378337742 ETH (1928390 gas * avg 0.017731778 gwei)
+- Block: 23945927
+- Deployment Cost: 0.00002532033150344 ETH (1928390 gas * avg 0.013130296 gwei)
 
 ## Contract Architecture
 The token uses a proxy pattern consisting of two contracts:
-1. **Proxy Contract** (`0x9283562629E708B694514E494004Ebd471348b16`)
+1. **Proxy Contract** (`0x9BA2dD51E6dE0247231c9Eb5Ad47DDdA64f5444c`)
    - This is the main address users interact with
    - Stores all contract state (balances, etc.)
    - Address remains constant through upgrades
 
-2. **Implementation Contract** (`0x1040FbA35f42F0aD0fcfA852255347Fb1e6Ea881`)
+2. **Implementation Contract** (`0x24f44C21511ffc40363467077f96C989F931E504`)
    - Contains the contract logic
    - Can be upgraded by the contract owner
    - No state storage
